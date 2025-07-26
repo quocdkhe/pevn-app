@@ -28,3 +28,6 @@ coverage
 *.sw?
 *.env
 *.tsbuildinfo
+
+#Prisma migration
+api/prisma/migrations/
