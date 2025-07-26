@@ -1,4 +1,3 @@
----
 
 # 🚀 Project Setup with Docker
 
@@ -52,4 +51,3 @@ To stop the app and remove containers:
 docker-compose down
 ```
 
----
