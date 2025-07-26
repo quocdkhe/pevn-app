@@ -1,0 +1,47 @@
+version: "3.9"
+
+services:
+  web:
+    build:
+      context: ./web
+    working_dir: /src/web
+    volumes:
+      - ./web:/src/web
+    ports:
+      - "3000:3000"
+    command: ["npm", "run", "dev"]
+
+  api:
+    build:
+      context: ./api
+    working_dir: /src/api
+    volumes:
+      - ./api:/src/api
+    ports:
+      - "8000:8000"
+    command: ["npm", "run", "dev"]
+
+  prisma-studio:
+    image: node:22-alpine
+    working_dir: /src/api
+    volumes:
+      - ./api:/src/api
+    command: npx prisma studio --port 5555 --browser none
+    ports:
+      - "5555:5555"
+    depends_on:
+      - db
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  db-data:
