@@ -1,10 +1,28 @@
-import { createMemoryHistory, createRouter } from 'vue-router';
+import { createWebHistory, createRouter } from 'vue-router';
 import HomeView from '@/views/HomeView.vue';
+import Login from '@/views/Login.vue';
+import Register from '@/views/Register.vue';
 
-const routes = [{ path: '/', component: HomeView }];
+const routes = [
+  {
+    name: 'Home page',
+    path: '/',
+    component: HomeView,
+  },
+  {
+    name: 'Login page',
+    path: '/login',
+    component: Login,
+  },
+  {
+    name: 'Register page',
+    path: '/register',
+    component: Register,
+  },
+];
 
 const router = createRouter({
-  history: createMemoryHistory(),
+  history: createWebHistory(),
   routes,
 });
 

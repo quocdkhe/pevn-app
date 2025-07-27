@@ -2,13 +2,21 @@ import express from "express";
 import dotenv from "dotenv";
 import userRoutes from "./routes/user.route";
 import cookieParser from "cookie-parser";
+import cors, { CorsOptions } from "cors";
 dotenv.config();
 const port = process.env.PORT || 8000;
 const app = express();
 
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
+
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
 
 app.use("/api/users", userRoutes);
 app.listen(port, () =>
