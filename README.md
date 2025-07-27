@@ -15,19 +15,18 @@ Before starting the app, install Node.js dependencies inside the container:
 docker-compose run --rm web npm install
 ```
 
-If needed, you can run the installation again:
-
 ```bash
-docker-compose run --rm web npm install
+docker-compose run --rm api npm install
 ```
 
 ## 📝 Environment Variables
 
 Before running the backend, create a `.env` file inside the `api` folder with the following content:
+Note: create database sampledb first, or replace the url with your database
 
 ```env
-DATABASE_URL=
-JWT_SECRET=
+DATABASE_URL=postgresql://postgres:postgres@db:5432/sampledb
+JWT_SECRET=secret
 ```
 
 Fill in the appropriate values for your database connection and JWT secret.
