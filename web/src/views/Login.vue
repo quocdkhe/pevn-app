@@ -38,6 +38,7 @@
 import { ref } from 'vue';
 import { useToast } from 'vue-toastification';
 import api from '@/utils/api';
+import router from '@/router';
 
 const toast = useToast();
 const username = ref('');
@@ -55,6 +56,15 @@ async function onLogin() {
     fetching.value = true;
     const { data } = await api.post('/users/auth', payload);
     toast.success(data.message);
+    localStorage.setItem(
+      'user',
+      JSON.stringify({
+        name: data.name,
+        id: data.id,
+        email: data.email,
+      }),
+    );
+    router.push('/');
   } catch (error: any) {
     console.log(error);
     toast.error(error?.response?.data?.message || 'Something went wrong, please check the console');

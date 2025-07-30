@@ -57,6 +57,9 @@ const authUser = async (
   generateToken(response, user.id);
   response.status(200).json({
     message: "Login successful",
+    name: user.name,
+    email: user.email,
+    id: user.id,
   });
 };
 
