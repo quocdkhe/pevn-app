@@ -36,7 +36,6 @@
         <template v-if="isLoggedIn">
           <v-btn class="ms-2 text-none" variant="text">
             {{ user.name }}
-
             <v-menu activator="parent" origin="top">
               <v-list>
                 <v-list-item link title="Update profile" to="/profile" />
@@ -65,6 +64,7 @@
 import { ref, shallowRef, onMounted } from 'vue';
 import { useToast } from 'vue-toastification';
 import api from '@/utils/api';
+import router from '@/router';
 
 // Simulated global user store using localStorage (replace with Pinia if preferred)
 const user = ref(JSON.parse(localStorage.getItem('user') || 'null'));
@@ -77,7 +77,7 @@ const tab = ref(0);
 
 const items = [
   { text: 'Dashboard', to: '/' },
-  { text: 'Profile', to: '/profile' },
+  ...(isLoggedIn.value ? [{ text: 'Profile', to: '/profile' }] : []),
 ];
 
 // Auto-rehydrate user if stored
@@ -97,6 +97,7 @@ async function logout() {
     name.value = '';
     isLoggedIn.value = false;
     toast.success('Logout successfully');
+    router.push('/login');
   } catch (error) {
     console.error(error);
     toast.error('Logout failed');
